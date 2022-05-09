@@ -1,0 +1,77 @@
+<html>
+  <head>
+    <title>PHP form ajax</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  </head>
+  <body>
+    <div id="message"></div>
+    <form action="" method="post">
+      <div style="margin: 10px">
+        Name: <input type="text" name="name" value="" />
+      </div>
+      <div style="margin: 10px">
+        Phone: <input type="text" name="phone" value="" />
+      </div>
+      <div style="margin: 10px">
+        Email: <input type="text" name="email" value="" />
+      </div>
+      <div style="margin: 10px">
+        Email: <input type="text" name="username" value="" />
+      </div>
+      <div style="margin: 10px">
+        Email: <input type="password" name="password" value="" />
+      </div>
+      <div style="margin: 10px">
+        <input
+          type="button"
+          onclick="submitForm();"
+          name="save_contact"
+          value="Save"
+        />
+      </div>
+    </form>
+    <script type="text/javascript">
+      function submitForm() {
+        var name = $("input[name=name]").val();
+        var phone = $("input[name=phone]").val();
+        var email = $("input[name=email]").val();
+        var username = $("input[name=username]").val();
+        var password = $("input[name=password]").val();
+
+        if (name != "" && phone != "" && email != "") {
+          var formData = {
+            name: name,
+            phone: phone,
+            email: email,
+            username: username,
+            email: password,
+          };
+          $("#message").html(
+            '<span style="color: red">Processing form. . . please wait. . .</span>'
+          );
+          $.ajax({
+            url: "http://localhost:8888/new/index.php",
+            type: "POST",
+            data: formData,
+            success: function (response) {
+              var res = JSON.parse(response);
+              console.log(res);
+              if (res.success == true)
+                $("#message").html(
+                  '<span style="color: green">Form submitted successfully</span>'
+                );
+              else
+                $("#message").html(
+                  '<span style="color: red">Form not submitted. Some error in running the database query.</span>'
+                );
+            },
+          });
+        } else {
+          $("#message").html(
+            '<span style="color: red">Please fill all the fields</span>'
+          );
+        }
+      }
+    </script>
+  </body>
+</html>
