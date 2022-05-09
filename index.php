@@ -15,9 +15,9 @@ catch(PDOException $e)
 
 $response = array('success' => false);
 
-if(isset($_POST['name']) && $_POST['name']!='' && isset($_POST['phone']) && $_POST['phone']!='' && isset($_POST['username']) && $_POST['username']!='' && isset($_POST['email']) && $_POST['email']!=''&&isset($_POST['email']) && $_POST['email']!='')
+if(isset($_POST['name']) && $_POST['name']!='' && isset($_POST['phone']) && $_POST['phone']!='' && isset($_POST['email']) && $_POST['email']!='' && isset($_POST['username']) && $_POST['username']!=''&&isset($_POST['password']) && $_POST['password']!='')
 {
-	$sql = "INSERT INTO contacts(name, phone, email) VALUES('".addslashes($_POST['name'])."', '".addslashes($_POST['phone'])."', '".addslashes($_POST['email'])."')";
+	$sql = "INSERT INTO contacts(name, phone, email,username,password) VALUES('".addslashes($_POST['name'])."', '".addslashes($_POST['phone'])."','".addslashes($_POST['email'])."', '".addslashes($_POST['username'])."','".addslashes($_POST['password'])."')";
 	
 	if($conn->query($sql))
 	{
